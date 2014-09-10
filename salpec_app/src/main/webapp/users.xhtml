@@ -1,0 +1,80 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />
+ 	<h:form id="form" prependId="false" >    
+    	<h4 class="title ui-widget-header ui-corner-all fontSizeMain">Users</h4>
+	    
+		<p:dataTable id="users" var="user" rowKey="#{user.id}" selectionMode="single" 
+			value="#{userController.userList}" 
+			emptyMessage="No Records Found." paginator="true" rows="10" style="min-width:360px; margin:0 auto;"> 
+			<p:column headerText="ID">
+				<h:outputText value="#{user.id}" />
+			</p:column>
+			<p:column headerText="Name">
+				<h:outputText value="#{user.name}" />
+			</p:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{user.email}" />
+			</p:column>
+		</p:dataTable>    
+	     <table> 
+		     <tr>
+		     	<td><h:outputLabel for="id" value="Id : " /></td>
+		     	<td><p:inputText id="id" value="#{userController.id}">
+		     			<f:converter converterId="javax.faces.Integer"/>
+		     		    <p:ajax event="blur" update="idMsg" />
+		     		</p:inputText>
+		     		<p:message id="idMsg" for="id" display="icon"/> 
+		     	</td>
+		     </tr>
+		     <tr>
+		     	<td><h:outputLabel for="name" value="Name : " /></td>
+		     	<td><p:inputText id="name" value="#{userController.name}">
+		     			<f:validateLength minimum="5" /> 
+		     			<p:ajax event="blur" update="nameMsg" />
+		     		</p:inputText>
+		     		<p:message id="nameMsg" for="name" display="icon"/> 
+		     	</td>
+		     </tr>
+		     <tr>
+		     	<td><h:outputLabel for="pass" value="Pass : " /></td>   
+		     	<td><p:inputText id="pass" value="#{userController.pass}"> 
+		     			<f:validateLength minimum="5" /> 
+		     			<p:ajax event="blur" update="passMsg" />  
+		     		</p:inputText>
+		     		<p:message id="passMsg" for="pass" display="icon"/> 
+		     	</td>    
+		     </tr> 
+		     <tr>
+		     	<td><h:outputLabel for="email" value="Email : " /></td>   
+		     	<td><p:inputText id="email" value="#{userController.email}"> 
+		     			<f:validateLength minimum="5" /> 
+		     			<p:ajax event="blur" update="emailMsg" />  
+		     		</p:inputText>
+		     		<p:message id="emailMsg" for="email" display="icon"/> 
+		     	</td>    
+		     </tr>              
+	         <tr>
+		     	<td><p:commandButton id="addUser" value="Add" action="#{userController.addUser(false)}" ajax="false"/></td>
+		     	<td><p:commandButton id="updateUser" value="Update" action="#{userController.updateUser}" ajax="false"/></td>
+		     	<td><p:commandButton id="reset" value="Reset" action="#{userController.reset}" ajax="false"/></td>
+		     </tr>   
+	     </table>
+     </h:form> 
+<f:metadata>
+	<f:event type="preRenderView" listener="#{userMB.checkAuthentication2}" />  
+  	<f:event type="preRenderView" listener="#{userMB.init}"/>
+	<f:event type="postAddToView" listener="#{consumptionController.init}" />
+</f:metadata>
+</ui:define>
+</ui:composition>
+
+    

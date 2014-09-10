@@ -1,0 +1,86 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+  <!--   (#{lang['welcome.jsf']} + ' Hello ' + #{userMB.name})-->
+<ui:define name="content">
+	<h:head><title><h:outputText value="#{userMB.isLoggedIn() ? (lang['welcome.jsf']).concat(userMB.name).concat('!') : 'Index'}"/></title></h:head>
+		<h:panelGroup rendered="#{userMB.loggedIn}">
+		<h:form>    	    
+			<p:growl id="growlMessage" life="5000" showDetail="true" /> 
+	    	<p class="fontSizeMain">Welcome, #{userMB.name}!</p>
+	    	
+	    	
+    		<!-- ako korisnik nema racun onda ga upozoriti da treba kreirati racun, isto za consumption -->
+	    	
+	    	
+			<h:link outcome="account" rendered="#{userMB.loggedIn and userMB.hasAccounts()}" value="View your account(s)"/><br/>
+			<h:link outcome="account" rendered="#{userMB.loggedIn and !userMB.hasAccounts()}" value="Create an account here"/><br/>
+			<h:link outcome="transactions" rendered="#{userMB.loggedIn}" value="View your recent activity"/><br/><br/>
+			
+            <p:outputPanel id="tagClouds" style="margin:0 auto;">
+				<div id="tagCloudIncomeCount" style="float:left;" >
+				<h:outputText value="Most used incomes" style="color: green;"/>
+			    <p:tagCloud model="#{dashboard.modelIncomeCount}">
+			        <p:ajax event="select" update="growlMessage" listener="#{dashboard.onSelect}" />
+			    </p:tagCloud></div>
+			    <div id="tagCloudIncomeValue" style="float:left;" >
+				<h:outputText value="Most valued incomes" style="color: green;" />
+			    <p:tagCloud model="#{dashboard.modelIncomeValue}" >
+			        <p:ajax event="select" update="growlMessage" listener="#{dashboard.onSelect}" />
+			    </p:tagCloud></div>
+				<div id="tagCloudExpenseCount" style="float:left;" >
+				<h:outputText value="Most used expenses" style="color: red;"/>
+			    <p:tagCloud model="#{dashboard.modelExpenseCount}" >
+			        <p:ajax event="select" update="growlMessage" listener="#{dashboard.onSelect}" />
+			    </p:tagCloud></div>
+			    <div id="tagCloudExpenseValue" style="float:left;" >
+				<h:outputText value="Most valued expenses" style="color: red;" />
+			    <p:tagCloud model="#{dashboard.modelExpenseValue}" >
+			        <p:ajax event="select" update="growlMessage" listener="#{dashboard.onSelect}" />
+			    </p:tagCloud></div>
+            </p:outputPanel>
+            <div style="clear:both;"></div>
+            <p:outputPanel id="TransactionDataScroller" style="margin:0 auto;min-width:240px;width:67%;">
+			<p:separator/>
+		    <p:dataScroller value="#{dashboard.transactions}" var="transaction" chunkSize="10">
+		        <f:facet name="header">
+		            Recently
+		        </f:facet>
+				<f:facet name="loader">
+	            	<p:commandButton value="Click to Load More" type="button"></p:commandButton>
+	            </f:facet>
+			  	<h:link outcome="transaction" style="text-decoration:none;">
+				<f:param name="id" value="#{transaction.id}" />
+	            <p:outputPanel id="dashboardDataScrollerTransaction" style="margin:5px 5px 10px 5px;font-size:20px;" 
+	            	styleClass="#{transaction.ie == 1 ? 'greenBorder greenBackgroundLight' : 'redBorder redBackgroundLight'}">
+                    <h:outputText value="#{transaction.date}" style="font-weight: bold">
+						<f:convertDateTime pattern="dd.MM.yyyy." />
+					</h:outputText><br/>
+ 
+                    <h:outputText value="paid " styleClass="spaced" />
+                    <h:outputText value="#{transaction.value}" styleClass="#{transaction.ie == 1 ? 'green' : 'red'}" style="font-weight: bold">
+						<f:convertNumber minFractionDigits="2" />		
+					</h:outputText>
+ 
+                    <h:outputText value=" for " />
+                    <h:outputText value="#{transaction.consumption}" style="font-weight: bold"/>
+                    <br />
+                    <h:outputText rendered="#{transaction.description != ''}" styleClass="spaced2" value="&#10;#{transaction.description}"/>
+	            </p:outputPanel>
+	            </h:link>
+		    </p:dataScroller>
+            </p:outputPanel>
+		</h:form>   
+		</h:panelGroup>
+		<h:panelGroup rendered="#{!userMB.loggedIn}">
+			<ui:include src="demo.xhtml"/>
+		</h:panelGroup>
+	<f:metadata>
+	  <f:event type="preRenderView" listener="#{userMB.init}"/>
+	</f:metadata>
+</ui:define>
+</ui:composition>

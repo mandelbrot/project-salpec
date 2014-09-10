@@ -1,0 +1,129 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />
+ 	<h:form id="form" prependId="false" >    
+    	<h4 class="title ui-widget-header ui-corner-all fontSizeMain" style="min-width:360px;">Edit Transaction</h4>
+	 	
+     	<h:panelGrid header="Full edit" id="displayTransaction" columns="3" cellpadding="4" 
+     		styleClass="#{transactionController.transaction.id == 0 ? 'defaultBorder' : 
+     			transactionController.transaction.ie == 1 ? 'greenBorder' : 'redBorder'}"> 
+     		<h:outputLabel value="Full edit:" style="margin:0 auto;"/>
+     		<h:outputLabel value="" />
+			<h:link value="transactions" outcome="transactions" />
+     		<!-- 
+	     	<h:outputLabel for="id" value="Id : " />
+	     	<h:outputLabel id="id" value="#{transactionController.transaction.id}">
+     		    <p:ajax event="blur" update="idMsg" />
+     		</h:outputLabel>
+     		<p:message id="idMsg" for="id" display="icon"/> 
+     		 -->
+		    <h:outputLabel value="Income/Expense: " />
+	        <p:selectOneRadio id="ie" value="#{transactionController.transaction.ie}" >
+	            <f:selectItem itemLabel="Income" itemValue="1" 
+	            	styleClass="#{transactionController.transaction.ie == 1 ? 'green' : ''}"/>
+	            <f:selectItem itemLabel="Expense" itemValue="0" 
+	            	styleClass="#{transactionController.transaction.ie == 1 ? 'red' : ''}"/>
+	            <p:ajax update=":form:displayTransaction :growlMessage" event="change"
+	            	listener="#{transactionController.ieChange}" />
+	        </p:selectOneRadio>
+  		        <h:outputLabel value="" />
+	       
+	     	<!-- <h:outputLabel for="id_currency" value="Currency: " />
+	     	<p:inputText id="id_currency" value="#{transactionController.transaction.idCurrency}">
+     			<f:converter converterId="javax.faces.Integer"/>
+     			<p:ajax event="blur" update="id_currencyMsg" />
+     		</p:inputText>
+     		<p:message id="id_currencyMsg" for="id_currency" display="icon"/> -->
+     		
+			    <h:outputLabel for="id_currency" value="Currency: " />
+     		<p:selectOneMenu id="id_currency" value="#{transactionController.transaction.idCurrency}" >
+               	<f:validateLongRange minimum="1" />
+     			<p:ajax listener="#{transactionController.currencySelected()}"/>
+	            <!-- <f:selectItem itemLabel="Select One" itemValue="0" /> -->
+	            <f:selectItems value="#{currencySelect.getCurrencyList()}"  var="c" itemValue="#{c.id}" itemLabel="#{c.name}" />
+	        </p:selectOneMenu>
+      			<h:outputLabel value="" />
+      			
+     		<h:outputLabel for="id_account" value="Account : " />
+     		<p:selectOneMenu id="id_account" value="#{transactionController.transaction.idAccount}" >
+               	<f:validateLongRange minimum="1" />
+     			<p:ajax listener="#{transactionController.accountSelected()}"/><!-- render="@form"  -->
+	            <f:selectItem itemLabel="Select One" itemValue="0" />
+	            <f:selectItems value="#{accountSelect.getAccountList()}"  var="a" itemValue="#{a.id}" itemLabel="#{a.name}" />
+	        </p:selectOneMenu>
+      			<h:outputLabel value="" />
+       
+	     	<h:outputLabel for="id_consumption" value="Consumption : " />   
+	     	<p:selectOneMenu id="id_consumption" value="#{transactionController.transaction.idConsumption}">                 	
+	     	<f:validateLongRange minimum="1" />
+     			<p:ajax listener="#{transactionController.consumptionSelected()}"/>
+	            <f:selectItem itemLabel="Select One" itemValue="0" />
+	            <f:selectItems value="#{consumptionSelect.getConsumptionList()}"  var="c" itemValue="#{c.id}" itemLabel="#{c.name}" />
+	        </p:selectOneMenu>
+     		<p:message id="id_consumptionMsg" for="id_consumption" display="icon"/> 
+     		
+	     	<h:outputLabel for="date" value="Date: " />   
+     		<p:calendar locale="#{UserMB.language}" mindate="01.01.2001" maxdate="31.12.2030" pattern="dd.MM.yyyy HH:mm" mask="true" 
+     			value="#{transactionController.transaction.dateTransaction}" id="dateTransaction" >
+               	<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+           	</p:calendar>
+	     	<h:outputLabel value="" />   
+     		
+	     	<h:outputLabel for="value" value="Value: " />   
+	     	<p:inputText id="value" value="#{transactionController.transaction.value}"> 
+     			<f:validateDoubleRange minimum="0.01" maximum="999999999.99" />
+     			<p:ajax event="blur" update="valueMsg" />  
+     		</p:inputText>
+     		<p:message id="valueMsg" for="value" display="icon"/> 
+     		     
+				<h:outputLabel for="description" value="Description: " />   
+	     	<p:inputTextarea id="description" value="#{transactionController.transaction.description}"> 
+     			<p:ajax event="blur" update="descriptionMsg" />  
+     		</p:inputTextarea>
+     		<p:message id="descriptionMsg" for="description" display="icon"/> 
+     		
+     		<h:outputLabel value="" /> 
+	     	<p:commandButton id="updateTransaction" value="#{lang['save']}" 
+	     		actionListener="#{transactionController.updateTransaction(transactionController.transaction)}" 
+	     		update=":form:displayTransaction :growlMessage" ajax="false" 
+	     		styleClass="#{transactionController.transaction.ie == 1 ? 'greenBackground' : 'redBackground'}" />
+	     			<!--  process="@this" 
+	     			target="#{transactionController.transaction}"  -->
+	     	<p:commandButton id="reset" icon="ui-icon ui-icon-plusthick" value="New" actionListener="#{transactionController.resetTransaction}" 
+	     		update=":form:displayTransaction :growlMessage"  
+	     		target="#{transactionController.transaction}" /><!-- process="@this" -->
+	    </h:panelGrid>  
+
+     </h:form> 
+     <script type="text/javascript">
+        //<![CDATA[
+        $(':radio').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        
+        alert();
+        $('#ie').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        //]]>
+    </script>
+<f:metadata>
+	<f:event type="preRenderView" listener="#{userMB.checkAuthentication2}" />  
+  	<f:event type="preRenderView" listener="#{userMB.init}"/>
+    <f:viewParam name="id" value="#{transactionController.id}" />
+	<f:event type="postAddToView" listener="#{transactionController.init}" />
+</f:metadata>
+</ui:define>
+</ui:composition>
+
+    

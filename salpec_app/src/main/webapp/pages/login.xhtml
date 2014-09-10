@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html" 
+     xmlns:f="http://java.sun.com/jsf/core" 
+     xmlns:p="http://primefaces.org/ui">  
+   
+ <h:head><title>Login page</title></h:head>  
+ <body>  
+<h:form>      
+	     <table> 
+		     <tr>
+		     	<td><h:outputLabel for="name" value="Name : " /></td>
+		     	<td><p:inputText id="name" value="#{userMB.name}">
+		     			<f:validateLength minimum="3" /> 
+		     			<p:ajax event="blur" update="nameMsg" />
+		     		</p:inputText>
+		     		<p:message id="nameMsg" for="name" display="icon"/> 
+		     	</td>
+		     </tr>
+		     <tr>
+		     	<td><h:outputLabel for="pass" value="Password : " /></td>   
+		     	<td><h:inputSecret id="pass" value="#{userMB.pass}"> 
+		     			<f:validateLength minimum="3" /> 
+		     			<p:ajax event="blur" update="passMsg" />  
+		     		</h:inputSecret>
+		     		<p:message id="passMsg" for="pass" display="icon"/> 
+		     	</td>    
+		     </tr>            
+	         <tr>
+		     	<td><p:commandButton id="login" value="login" action="#{userMB.login}" ajax="false"/></td>
+		     </tr>   
+	     </table>
+     </h:form>  
+</body>    
+</html> 

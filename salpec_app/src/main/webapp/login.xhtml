@@ -1,0 +1,35 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+	<h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>  
+	<h:form prependId="false">     
+	    <p:panel id="registrationFormHeader" header="Enter your login credentials:" style="min-width:240px;max-width: 300px;width: 25%;margin: 0 auto;" >  
+	        <h:panelGrid styleClass="fontSizePage" columns="3" >  
+			   	<h:outputLabel for="name" value="Name: " />
+			   	<p:inputText id="name" value="#{userMB.name}" style="min-width:120px;max-width: 200px;width:30%;">
+	   				<f:validateLength minimum="3" /> 
+		   			<p:ajax event="blur" update="nameMsg" />
+		   		</p:inputText>
+		   		<p:message id="nameMsg" for="name" display="icon"/> 
+			  	<h:outputLabel for="pass" value="Password: " /> 
+			   	<p:password id="pass" value="#{userMB.pass}" feedback="true" style="min-width:120px;max-width: 200px;width:30%;"> 
+	   				<f:validateLength minimum="3" /> 
+		   			<p:ajax event="blur" update="passMsg" />
+		   		</p:password>
+		   		<p:message id="passMsg" for="pass" display="icon"/> 
+			   	<h:outputLabel for="" value="" />
+		   	<p:commandButton id="login" value="login" update="matchGrid growlMessage" action="#{userMB.login}" ajax="false"/>
+	        </h:panelGrid>  
+	    </p:panel>  
+	</h:form>  
+<f:metadata>
+  	<f:event type="preRenderView" listener="#{userMB.checkAuthentication}" />
+</f:metadata>
+</ui:define>
+</ui:composition>

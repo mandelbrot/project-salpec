@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+><!-- primefaces.prime.com.tr/ui     http://primefaces.org/ui -->
+
+    <p:tree id="menuTree" style="max-width:90%;" value="#{consumptionMenuController.root}" var="doc" animate="true">  
+    	<p:treeNode type="ConsumptionGroup" style="max-width:80%;">  <!-- expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed" -->
+    		<a href="consumption.xhtml?cgid=#{doc[0]}">#{doc[1]}</a>
+	      <!-- <p:commandLink ajax="false" action="consumption" 
+	      	actionListener="#{consumptionController1.attrListener}" value="#{doc[1]}">
+	      	<h:outputText value="#{doc}" />
+		      <f:attribute name="consumptionGroup" value="#{doc[0]}" />
+		  </p:commandLink> -->
+	   	</p:treeNode>
+    	<p:treeNode type="Consumption"> 
+    		<a href="consumption.xhtml?cid=#{doc[0]}">#{doc[1]}</a>
+    		<!--  
+      		<p:commandLink ajax="false" action="consumption.xhtml?id=#{doc}" 
+	      	actionListener="#{consumptionController1.attrListener}" value="#{doc}">
+	      		<h:outputText value="#{doc}" />
+		      	<f:attribute name="consumption" value="#{doc}" />
+		  	</p:commandLink>-->
+	   </p:treeNode>
+    </p:tree>
+</html>

@@ -1,0 +1,22 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title>error</title></h:head>   
+	 <f:view>  
+	     <h:form>  
+			<h:panelGroup rendered="#{userMB.loggedIn}">
+		    	<p class="fontSizeMain">#{userMB.name}, There has been an error! :(</p>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{!userMB.loggedIn}">
+		    	<p class="fontSizeMain">Guest, There has been an error! :(</p>
+			</h:panelGroup>
+	     </h:form>  
+	 </f:view>  
+</ui:define>
+</ui:composition>

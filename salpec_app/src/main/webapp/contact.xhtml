@@ -1,0 +1,25 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+  <!--   (#{lang['welcome.jsf']} + ' Hello ' + #{userMB.name})-->
+<ui:define name="content">
+	<h:head><title><h:outputText value="#{userMB.isLoggedIn() ? (lang['welcome.jsf']).concat(userMB.name).concat('!') : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" /> 
+	<p:panel style="min-width:240px;max-width: 360px;margin: 0 auto;">
+		<h:panelGrid styleClass="fontSizeMain" columns="2" >  
+		   	<h:outputLabel for="name" value="Developed by" />
+		   	<h:outputLabel for="name" value="Marko Leljak" />
+	   				   		
+		   	<h:outputLabel for="name" value="Email " />
+		   	<h:outputLabel for="name" value="mleljak@gmail.com" />
+        </h:panelGrid>  
+	</p:panel>  
+	<f:metadata>
+	  <f:event type="preRenderView" listener="#{userMB.init}"/>
+	</f:metadata>
+</ui:define>
+</ui:composition>

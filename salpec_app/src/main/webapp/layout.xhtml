@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+<h:outputStylesheet library="css" name="style.css"  />
+
+    <h:head>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" id="layoutHeader" class="header">
+            	<div id="header" class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all" role="menubar"><!--  style="text-align:center;"   http://jsfiddle.net/jasongennaro/MZrym/ -->
+	            	<div style="display:inline-block;">
+	            		<h:outputLabel id="salpec" styleClass="center" value="SalPec" />
+	            	</div>
+	                <h:form style="float:right; display:inline-block;">
+						<h:panelGrid columns="5" style="text-align: right">
+							<h:selectOneMenu value="#{userMB.language}" onchange="submit()"
+								valueChangeListener="#{language.countryLocaleCodeChanged}">
+								<f:selectItems value="#{language.countriesInMap}" /> 
+							</h:selectOneMenu>
+							<h:outputLabel rendered="#{!userMB.loggedIn}" value="#{lang['guest']}" /><br/>
+							<h:commandLink action="#{userMB.userPage}" rendered="#{userMB.loggedIn}" value="#{userMB.name}"/>
+							<h:commandLink action="#{userMB.logout}" rendered="#{userMB.loggedIn}" value="Logout"/>
+							<h:commandLink action="#{userMB.loginPage}" rendered="#{!userMB.loggedIn}" value="Login"/>			 		
+						</h:panelGrid>
+					</h:form> 
+				</div>
+            </p:layoutUnit>
+
+            <p:layoutUnit id="footer-container" position="south" size="60" resizable="#{userMB.loggedIn}" collapsible="#{userMB.loggedIn}">
+                <div id="footer" class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all">
+                <h:outputText styleClass="fontSizeFooter" id="footer-center" value="Copyright Marko Leljak" />
+                <h:outputText styleClass="fontSizeFooter" id="space" value="" />
+                <h:outputText styleClass="fontSizeFooter" id="footer-center-faq" value="FAQ" />
+                </div>
+            </p:layoutUnit>
+
+            <p:layoutUnit id="Menu" position="west" size="200" header="Menu" rendered="#{userMB.loggedIn and 
+            	(request.requestURI != '/OTV_JSF_Spring_Hibernate_Project/consumptiongroups.xhtml' 
+            	or request.requestURI != '/OTV_JSF_Spring_Hibernate_Project/consumptions.xhtml'  
+            	or request.requestURI != '/OTV_JSF_Spring_Hibernate_Project/consumption.xhtml' 
+            	or request.requestURI != '/OTV_JSF_Spring_Hibernate_Project/transactions.xhtml' 
+            	or request.requestURI != '/OTV_JSF_Spring_Hibernate_Project/transaction.xhtml' 
+            	or request.requestURI != '/OTV_JSF_Spring_Hibernate_Project/users.xhtml'
+            	or request.requestURI != '/OTV_JSF_Spring_Hibernate_Project/account.xhtml')}" resizable="#{userMB.loggedIn}" collapsible="#{userMB.loggedIn}">
+            	<h:form>
+					<h:link outcome="index" rendered="#{userMB.loggedIn}" value="Home"/><br/>
+					<h:link outcome="account" rendered="#{userMB.loggedIn}" value="Account"/><br/>
+					<h:link outcome="users" rendered="#{userMB.role == '1'}" value="Users"/><br/>
+					<br/>
+					<h:link outcome="transactions" rendered="#{userMB.loggedIn}" value="Transactions"/><br/>
+					<h:link outcome="consumptiongroups" rendered="#{userMB.loggedIn}" value="Consumption Groups"/><br/>
+					<h:link outcome="consumptions" rendered="#{userMB.loggedIn}" value="Consumptions"/><br/>
+					<br/>
+						<ui:include rendered="#{userMB.loggedIn}" src="consumptionmenu.xhtml"/>
+				    <br/>
+				    <br/>
+				    <h:commandLink action="#{userMB.logout}" rendered="#{userMB.loggedIn}" value="Logout"/>
+				    <br/>
+                </h:form>
+            </p:layoutUnit>
+<!--
+            <p:layoutUnit position="east" size="200" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">
+                <h:outputText value="Right unit content." />
+            </p:layoutUnit>
+-->
+            <p:layoutUnit position="center" id="content">
+                <ui:insert name="content">Put default content here, if any.</ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+<script type="text/javascript">
+	//<![CDATA[
+	$(document).ready( function() {
+	    $('#salpec').click( function() {
+	    	window.location.href = "index.xhtml";
+	    });
+	    $('#footer-center').click( function() {
+	    	window.location.href = "contact.xhtml";
+	    });
+	    $('#footer-center-faq').click( function() {
+	    	window.location.href = "faq.xhtml";
+	    });
+	});  
+	//]]>
+</script>
+</html>
+				    <!-- <p:commandButton icon="ui-icon ui-icon-star"/> -->

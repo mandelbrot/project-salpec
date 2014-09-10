@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+  	
+  	<!-- JSF and Spring are integrated -->
+  	<application>
+    	<el-resolver>
+    		org.springframework.web.jsf.el.SpringBeanFacesELResolver
+    	</el-resolver>
+     	   <!--<locale-config>
+     	        <default-locale>en</default-locale>
+     	   </locale-config>-->
+	   <resource-bundle>
+		<base-name>language.language</base-name>
+		<var>lang</var>
+	   </resource-bundle>
+  	</application>
+	
+	<!-- configuration of navigation rules -->	<navigation-rule>
+	    <from-view-id>/index.xhtml</from-view-id> 
+	    <navigation-case>
+	        <from-outcome>success</from-outcome>
+            <to-view-id>/users.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+	        <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	    <navigation-case>
+	        <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	    <navigation-case>
+	        <from-outcome>account</from-outcome>
+            <to-view-id>/account.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	    <!-- <navigation-case>
+	        <from-outcome>consumption</from-outcome>
+            <to-view-id>/consumption.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> -->
+	    <navigation-case>
+	        <from-outcome>register</from-outcome>
+            <to-view-id>/register.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+	        <from-outcome>error</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	</navigation-rule>
+    <navigation-rule>
+		<from-view-id>register</from-view-id>
+	    <navigation-case>
+	        <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	</navigation-rule>
+    <!-- <navigation-rule>
+		<from-view-id>/users.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+	        <from-outcome>error</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	</navigation-rule> -->
+    <navigation-rule>
+		<from-view-id>/account.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+	        <from-outcome>error</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	</navigation-rule>
+    <navigation-rule>
+		<from-view-id>/contact.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+	        <from-outcome>error</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	</navigation-rule>
+<!--     <navigation-rule>
+		<from-view-id>/transaction.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>transactions</from-outcome>
+            <to-view-id>/transactions.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+	</navigation-rule> -->
+
+</faces-config>

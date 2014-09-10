@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)" preserve-order="true">
+    <classes>
+      <class name="com.otv.user.service.UserServiceTest">
+        <methods>
+          <include name="runFirstTestCase"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="springTestContextBeforeTestClass"/>
+          <include name="springTestContextPrepareTestInstance"/>
+          <include name="runBeforeTest"/>
+          <include name="springTestContextAfterTestMethod"/>
+          <include name="runSecondTestCase"/>
+        </methods>
+      </class> <!-- com.otv.user.service.UserServiceTest -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

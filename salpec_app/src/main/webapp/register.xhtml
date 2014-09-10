@@ -1,0 +1,47 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />   
+	<!-- Enclose the p:panel in <h:form prependId="false">.
+	Then you can use the ID selector (as mentioned in the other reply), as the id will not change.-->
+    <h:form prependId="false">
+	     <p:panel id="registrationFormHeader" header="Registration:" style="min-width:240px;max-width: 300px;width: 25%;margin: 0 auto;" >  
+	        <h:panelGrid styleClass="fontSizePage" columns="3" >  
+			   	<h:outputLabel for="name" value="Name: " />
+			   	<p:inputText id="name" value="#{userController.name}" style="min-width:120px;max-width: 200px;width:30%;">
+	   				<f:validateLength minimum="3" /> 
+		   			<p:ajax event="blur" update="nameMsg" />
+		   		</p:inputText>
+		   		<p:message id="nameMsg" for="name" display="icon"/> 
+		   				   		
+			   	<h:outputLabel for="email" value="Email: " />
+			   	<p:inputText id="email" value="#{userController.email}" style="min-width:120px;max-width: 200px;width:30%;">
+	   				<f:validateLength minimum="3" /> 
+		   			<p:ajax event="blur" update="emailMsg" />
+		   		</p:inputText>
+		   		<p:message id="emailMsg" for="email" display="icon"/> 
+		   		
+			  	<h:outputLabel for="pass" value="Password: " /> 
+			   	<p:password id="pass" value="#{userController.pass}" feedback="true" style="min-width:120px;max-width: 200px;width:30%;"> 
+	   				<f:validateLength minimum="3" /> 
+		   			<p:ajax event="blur" update="passMsg" />
+		   		</p:password>
+		   		<p:message id="passMsg" for="pass" display="icon"/> 
+
+			   	<h:outputLabel for="" value="" />
+		   		<p:commandButton id="addUser" value="Register" update="matchGrid growlMessage" action="#{userController.registerUser()}" ajax="false"/>
+	        </h:panelGrid>  
+	    </p:panel>  
+     </h:form>     
+<f:metadata>
+ <f:event type="preRenderView" listener="#{userMB.checkAuthentication}" />  
+</f:metadata>
+</ui:define>
+</ui:composition>

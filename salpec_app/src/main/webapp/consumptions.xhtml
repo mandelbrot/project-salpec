@@ -1,0 +1,161 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />
+ 	<h:form id="form" prependId="false" >    
+    	<h4 class="title ui-widget-header ui-corner-all fontSizeMain" style="min-width:360px;">Edit consumptions</h4>
+ 	 	<p:contextMenu id="contextMenu" for="consumptions" widgetVar="ctxMenu">  
+	        <p:menuitem value="View" update=":form:displayConsumptions :form:display" icon="ui-icon-search" 
+	        oncomplete="PF('consumptionDialog').show()"/>
+	        <p:menuitem value="Delete" update=":form:displayConsumptions consumptions :growlMessage" icon="ui-icon-closethick" 
+	        	actionListener="#{consumptionsController.deleteConsumption(consumptionsController.selectedConsumption)}" 
+	        	process="@this" target="#{consumptionsController.selectedConsumption}" />  
+	    </p:contextMenu>  
+	    
+		<p:dataTable id="consumptions" var="consumption" rowKey="#{consumption.id}" selectionMode="single" emptyMessage="No Records Found." 
+			paginator="true" rows="10" value="#{consumptionsController.consumptionList}" style="min-width:360px; margin:0 auto;" 
+			selection="#{consumptionsController.selectedConsumption}"> 
+         	<p:ajax event="rowSelect" update=":form:displayConsumptions :form:display :form:contextMenu" 
+        		listener="#{consumptionsController.onRowSelect}" />
+        	<p:ajax event="contextMenu" update=":form:displayConsumptions :form:display :form:contextMenu" 
+        		listener="#{consumptionsController.onRowSelect}" /> <!-- oncomplete="ctx.show(currentEvent);" -->
+			<!-- <p:column headerText="Id">
+				<h:outputText value="#{consumption.id}" />
+			</p:column>
+			<p:column headerText="IdConsumptionGroup">
+				<h:outputText value="#{consumption.idConsumptionGroup}" />
+			</p:column> -->
+			<p:column sortBy="name" headerText="#{lang['consumption.type']}">
+				<h:outputText value="#{consumption.name}" /><!--  styleClass="right" -->
+			</p:column>
+			<p:column id="dtAccount" sortBy="ieDefault" headerText="Income/Expense">
+				<h:outputText value="#{consumption.ieDefault == '1' ? 'Income' : 'Expense'}" />
+			</p:column>
+       	 	<f:facet name="footer">
+          		<p:commandButton id="viewButton" value="View" icon="ui-icon-search"
+                   update=":form:displayConsumptions :form:display" oncomplete="PF('consumptionDialog').show()">
+	     	    <f:ajax execute="@form" render="@form" />
+				</p:commandButton>
+       		</f:facet>
+       	 	<f:facet name="footer">
+          		<p:commandButton id="deleteButton" value="Delete" icon="ui-icon-closethick"
+                   update=":form:displayConsumptions consumptions :growlMessage"
+	        	actionListener="#{consumptionsController.deleteConsumption(consumptionsController.selectedConsumption)}" 
+	        	process="@this" target="#{consumptionsController.selectedConsumption}">
+	     	    <f:ajax execute="@form" render="@form" />
+			</p:commandButton>
+       		</f:facet>
+		</p:dataTable>
+     
+     	<h:panelGrid header="Quick edit" id="displayConsumptions" columns="3" cellpadding="4" 
+     		styleClass="#{consumptionsController.selectedConsumption.id == 0 ? 'defaultBorder' : 
+     			consumptionsController.selectedConsumption.ieDefault == 1 ? 'greenBorder' : 'redBorder'}"> 
+     		<h:outputLabel value="Quick edit:" style="margin:0 auto;"/>
+     		<h:outputLabel value="" />
+     		<h:outputLabel value="" />
+     		<!--
+	     	<h:outputLabel for="id" value="Id : " />
+	     	<h:outputLabel id="id" value="#{consumptionsController.selectedConsumption.id}">
+     		    <p:ajax event="blur" update="idMsg" />
+     		</h:outputLabel>
+     		<p:message id="idMsg" for="id" display="icon"/> 
+     			     		
+	     	<h:outputLabel for="idConsumptionGroup" value="Consumption group : " />
+	     	<p:selectOneMenu id="idConsumptionGroup" value="#{consumptionsController.selectedConsumption.idConsumptionGroup}">                 	<f:validateLongRange minimum="1" />
+     			<p:ajax listener="#{consumptionsController.consumptionGroupSelected()}" update="consumptions"/>
+	            <f:selectItems value="#{consumptionGroupSelect.getConsumptionGroupList()}"  var="c" itemValue="#{c.id}" itemLabel="#{c.name}" />
+     		</p:selectOneMenu>
+     		<p:message id="idConsumptionGroupMsg" for="idConsumptionGroup" display="icon"/> 
+     		-->
+	     	<h:outputLabel for="name" value="Name" />   
+	     	<p:inputText id="name" value="#{consumptionsController.selectedConsumption.name}"> 
+     			<p:ajax event="blur" update="nameMsg" />  
+     		</p:inputText>
+     		<p:message id="nameMsg" for="name" display="icon"/> 
+     		     
+  		        <h:outputLabel value="Default Income/Expense: " />
+	        <p:selectOneRadio id="ieDefault" value="#{consumptionsController.selectedConsumption.ieDefault}" >
+	            <f:selectItem itemLabel="Income" itemValue="1"/>
+	            <f:selectItem itemLabel="Expense" itemValue="0"/>
+	            <p:ajax update=":form:displayConsumptions consumptions :growlMessage" event="change"
+	            	listener="#{consumptionsController.ieChange}" />
+	        </p:selectOneRadio>
+  		        <h:outputLabel value="" />
+       
+				<h:outputLabel for="description" value="Description: " />   
+	     	<p:inputTextarea id="description" value="#{consumptionsController.selectedConsumption.description}"> 
+     			<p:ajax event="blur" update="descriptionMsg" />  
+     		</p:inputTextarea>
+     		<p:message id="descriptionMsg" for="description" display="icon"/> 
+     		
+     		<h:outputLabel value="" /> 
+	     	<p:commandButton id="updateConsumption" value="#{lang['save']}" 
+	     		actionListener="#{consumptionsController.updateConsumption(consumptionsController.selectedConsumption)}" 
+	     		update=":form:displayConsumptions consumptions :growlMessage"
+	     		styleClass="#{consumptionsController.selectedConsumption.ieDefault == 1 ? 'greenBackground' : 'redBackground'}">
+	     	    <f:ajax execute="@form" render="@form" />
+			</p:commandButton>
+	     	<p:commandButton id="reset" icon="ui-icon ui-icon-plusthick" value="New" actionListener="#{consumptionsController.resetConsumption}" 
+	     		update=":form:displayConsumptions consumptions :growlMessage"  
+	     		target="#{consumptionsController.selectedConsumption}">
+	     	    <f:ajax execute="@form" render="@form" />
+			</p:commandButton>
+			
+  		        <h:outputLabel value="" />
+			<h:link outcome="index" rendered="#{userMB.loggedIn}" value="Home"/><br/>
+	    </h:panelGrid>  
+
+	    <p:dialog header="Consumption details" widgetVar="consumptionDialog" resizable="false" id="consumptionDlg"
+        	showEffect="fade" appendToBody="false" dynamic="true" hideEffect="explode" modal="false">
+	        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+	        	<!--
+	            <h:outputText value="Id:" />
+	            <h:outputText value="#{consumptionsController.selectedConsumption.id}" style="font-weight:bold"/>
+	 		 
+	            <h:outputText value="Id group:" />
+	            <h:outputText value="#{consumptionsController.selectedConsumption.idConsumptionGroup}" style="font-weight:bold"/>
+	 			-->
+	            <h:outputText value="Name:" />
+	            <h:outputText value="#{consumptionsController.selectedConsumption.name}" style="font-weight:bold"/>
+	 
+	            <h:outputText value="Default Income/Expense:" />
+	            <h:outputText value="#{consumptionsController.selectedConsumption.ieDefault == '1' ? 'Income' : 'Expense'}" style="font-weight:bold"
+	            	styleClass="#{consumptionsController.selectedConsumption.ieDefault == 1 ? 'green' : 'red'}"/>
+
+            	<h:outputText rendered="#{consumptionsController.selectedConsumption.description != 'null'}" 
+            		value="Opis:" />
+            	<h:outputText rendered="#{consumptionsController.selectedConsumption.description != 'null'}" 
+            		value="#{consumptionsController.selectedConsumption.description}" style="font-weight:bold"/>
+	        </h:panelGrid>
+	    </p:dialog>  
+     </h:form> 
+     <script type="text/javascript">
+        //<![CDATA[
+        $(':radio').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        
+        alert();
+        $('#ie').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        //]]>
+    </script>
+<f:metadata>
+	<f:event type="preRenderView" listener="#{userMB.checkAuthentication2}" />  
+  	<f:event type="preRenderView" listener="#{userMB.init}"/>
+	<f:event type="postAddToView" listener="#{consumptionsController.init}" />
+</f:metadata>
+</ui:define>
+</ui:composition>
+
+    

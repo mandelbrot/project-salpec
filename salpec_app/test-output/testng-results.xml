@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="2" failed="0" total="2" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="2291" started-at="2012-03-24T19:28:59Z" finished-at="2012-03-24T19:29:02Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="2291" started-at="2012-03-24T19:28:59Z" finished-at="2012-03-24T19:29:02Z">
+      <class name="com.otv.user.service.UserServiceTest">
+        <test-method status="PASS" signature="runBeforeTest()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="runBeforeTest" is-config="true" duration-ms="14" started-at="2012-03-24T19:28:59Z" finished-at="2012-03-24T19:28:59Z">
+        </test-method> <!-- runBeforeTest -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2012-03-24T19:28:59Z" finished-at="2012-03-24T19:28:59Z">
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="FAIL" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="0" started-at="2012-03-24T19:28:59Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2012-03-24T19:28:59Z">
+          <exception class="org.springframework.beans.factory.BeanCreationException">
+            <message>
+              <![CDATA[Error creating bean with name 'com.otv.user.service.UserServiceTest': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: com.otv.user.service.UserService com.otv.user.service.UserServiceTest.UserService; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.otv.user.service.UserService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'com.otv.user.service.UserServiceTest': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: com.otv.user.service.UserService com.otv.user.service.UserServiceTest.UserService; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.otv.user.service.UserService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:287)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1106)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:374)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:110)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextPrepareTestInstance(AbstractTestNGSpringContextTests.java:133)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:551)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
+	at org.testng.internal.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:175)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:107)
+	at org.testng.TestRunner.privateRun(TestRunner.java:768)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:87)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1185)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1110)
+	at org.testng.TestNG.run(TestNG.java:1022)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:109)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:202)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:173)
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: com.otv.user.service.UserService com.otv.user.service.UserServiceTest.UserService; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.otv.user.service.UserService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:506)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:284)
+	... 30 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.otv.user.service.UserService] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:924)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:793)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:707)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:478)
+	... 32 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.springframework.beans.factory.BeanCreationException -->
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="SKIP" signature="runBeforeClass()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="runBeforeClass" is-config="true" duration-ms="0" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- runBeforeClass -->
+        <test-method status="SKIP" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="SKIP" signature="runBeforeMethod()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="runBeforeMethod" is-config="true" duration-ms="0" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- runBeforeMethod -->
+        <test-method status="SKIP" signature="runFirstTestCase()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="runFirstTestCase" duration-ms="0" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- runFirstTestCase -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="14" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.otv.user.service.UserServiceTest.runFirstTestCase()]]>
+              </value>
+            </param>
+          </params>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="SKIP" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="SKIP" signature="runBeforeMethod()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="runBeforeMethod" is-config="true" duration-ms="0" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- runBeforeMethod -->
+        <test-method status="SKIP" signature="runSecondTestCase()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="runSecondTestCase" duration-ms="1" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- runSecondTestCase -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.otv.user.service.UserServiceTest.runSecondTestCase()]]>
+              </value>
+            </param>
+          </params>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.otv.user.service.UserServiceTest@77a7f9]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2012-03-24T19:29:02Z" finished-at="2012-03-24T19:29:02Z">
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.otv.user.service.UserServiceTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

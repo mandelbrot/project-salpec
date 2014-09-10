@@ -1,0 +1,42 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+<h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+     <h:form>      
+		<h:outputLabel for="id" value="#{userMB.isLoggedIn() ? userMB.name : 'Guest'}" /><br/>
+		<h:commandLink action="#{userMB.logout}" rendered="#{userMB.loggedIn}" value="Logout"/>
+		<h:panelGroup rendered="#{userMB.loggedIn}">
+	    	<p>Welcome, #{userMB.name}!</p>
+		</h:panelGroup>
+     </h:form>   
+	<h:form>
+		<h:outputText value="USERs : "></h:outputText>
+		<p:dataTable id="users" var="user" value="#{userCRUD.userList}" style="width: 10%">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{user.id}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Name" />
+				</f:facet>
+				<h:outputText value="#{user.name}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Email" />
+				</f:facet>
+				<h:outputText value="#{user.email}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</ui:define>
+</ui:composition>

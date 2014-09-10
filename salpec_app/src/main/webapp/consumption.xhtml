@@ -1,0 +1,69 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />
+ 	<h:form id="form" prependId="false" >    
+	    <h4 class="title ui-widget-header ui-corner-all fontSizeMain" style="min-width:360px;"><h:outputText value="#{consumptionController.consumptionGroup}"/></h4>
+	    
+		<p:dataTable id="consumptionView" var="transaction" rowKey="#{transaction.id}" selectionMode="single" 
+			value="#{consumptionController.consumptionList}" 
+			emptyMessage="No Records Found." paginator="true" rows="10" style="min-width:360px; margin:0 auto;"> 
+			<!-- 
+			<p:column headerText="Id">
+				<h:outputText value="#{transaction.id}" />
+			</p:column>
+			 -->
+			<p:column sortBy="dateTransaction" headerText="#{lang['date']}">
+				<h:outputText value="#{transaction.dateTransaction}" style="font-weight: bold;">
+					<f:convertDateTime pattern="dd.MM.yyyy." />
+				</h:outputText>
+			</p:column>
+			<p:column sortBy="value" headerText="#{lang['value']}">
+				<h:outputText value="#{transaction.value}" styleClass="#{transaction.ie == 1 ? 'green' : 'red'}" style="font-weight: bold;">
+					<f:convertNumber pattern="#0.00"/>
+				</h:outputText>
+			</p:column>
+			<p:column sortBy="consumptionName" headerText="#{lang['consumption.type']}">
+				<h:outputText styleClass="right" value="#{transaction.consumptionName}" />
+			</p:column>
+			<p:column id="dtAccount" sortBy="accountName" headerText="#{lang['account']}">
+				<h:outputText value="#{transaction.accountName}" />
+			</p:column>
+			<p:column sortBy="code" headerText="#{lang['currency']}">
+				<h:outputText value="#{transaction.code}" />
+			</p:column>
+		</p:dataTable>
+		
+		
+		
+		
+		
+		
+		<!-- staviti uk. sumu za consumptiongroup i po mjesecima !!!!!!!!!!!!!!!!!!!!!!! 
+		nakon toga dodati još neke statistike (po mjesecima, itd.) i grafove (po mjesecima, itd.)-->
+		
+		
+		
+		
+		
+		
+		
+     </h:form> 
+<f:metadata>
+	<f:event type="preRenderView" listener="#{userMB.checkAuthentication2}" />  
+  	<f:event type="preRenderView" listener="#{userMB.init}"/>
+    <f:viewParam name="cid" value="#{consumptionController.cid}" />
+    <f:viewParam name="cgid" value="#{consumptionController.cgid}" />
+	<f:event type="postAddToView" listener="#{consumptionController.init}" />
+</f:metadata>
+</ui:define>
+</ui:composition>
+
+    

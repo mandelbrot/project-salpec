@@ -1,0 +1,213 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />
+ 	<h:form id="form" prependId="false" >    
+	    	<h4 class="title ui-widget-header ui-corner-all fontSizeMain" style="min-width:360px;">All transactions</h4>
+		 	<p:contextMenu id="contextMenu" for="transactions" widgetVar="ctxMenu">  
+		 	<!-- http://www.primefaces.org/showcase/ui/datatableContextMenu.jsf   -->
+		        <p:menuitem value="View" update=":form:displayTransaction :form:display" icon="ui-icon-search" 
+		        oncomplete="PF('transactionDialog').show()"/>
+		        <p:menuitem value="Delete" update=":form:displayTransaction transactions :growlMessage" icon="ui-icon-closethick" 
+		        	actionListener="#{transactionViewController.deleteTransaction(transactionViewController.selectedTransaction)}" 
+		        	process="@this" target="#{transactionViewController.selectedTransaction}" />  
+		    </p:contextMenu> 
+	    	<!-- <h:panelGroup id="mygroup"> -->
+			<p:dataTable id="transactions" var="transaction" rowKey="#{transaction.id}" selectionMode="single" 
+				value="#{transactionViewController.transactionList}" selection="#{transactionViewController.selectedTransaction}" 
+				emptyMessage="No Records Found." paginator="true" rows="10" style="min-width:360px; margin:0 auto;"> 
+	        	<p:ajax event="rowSelect" update=":form:displayTransaction :form:display :form:contextMenu" 
+	        		listener="#{transactionViewController.onRowSelect}" />
+	        	<p:ajax event="contextMenu" update=":form:displayTransaction :form:display :form:contextMenu" 
+	        		listener="#{transactionViewController.onRowSelect}" /><!-- oncomplete="ctx.show(currentEvent);" -->
+				<!-- <p:column headerText="Id">
+					<h:outputText value="#{transaction.id}" />
+				</p:column> -->
+				<p:column sortBy="dateTransaction" headerText="#{lang['date']}">
+					<h:outputText value="#{transaction.dateTransaction}" style="font-weight: bold;">
+						<f:convertDateTime pattern="dd.MM.yyyy." />
+					</h:outputText>
+				</p:column>
+				<p:column sortBy="value" headerText="#{lang['value']}">
+					<h:outputText value="#{transaction.value}" styleClass="#{transaction.ie == 1 ? 'green' : 'red'}" style="font-weight: bold;">
+						<f:convertNumber pattern="#0.00"/>
+					</h:outputText>
+				</p:column>
+				<p:column sortBy="consumptionName" headerText="#{lang['consumption.type']}">
+					<h:outputText styleClass="right" value="#{transaction.consumptionName}" />
+				</p:column>
+				<p:column id="dtAccount" sortBy="accountName" headerText="#{lang['account']}">
+					<h:outputText value="#{transaction.accountName}" />
+				</p:column>
+				<p:column sortBy="code" headerText="#{lang['currency']}">
+					<h:outputText value="#{transaction.code}" />
+				</p:column>
+	            <!--<p:column>
+		            <p:commandButton value="delete"
+		                             action="#{transactionViewController.deleteTransaction(selectedTransaction)}"
+		                             update="transactions :form:transactions" ajax="true">
+		                <f:setPropertyActionListener target="#{transactionViewController.selectedTransaction}"
+		                                             value="#{transaction}"/>
+		            </p:commandButton>
+	            </p:column>       
+	             <p:column style="width:4%">
+	                <p:commandButton id="selectButton" update=":form:display" oncomplete="PF('transactionDialog').show()" icon="ui-icon-search" title="View">
+	                <f:setPropertyActionListener value="#{transaction}" target="#{transactionViewController.selectedTransaction}" />
+	            </p:commandButton>
+	        	</p:column> -->
+        	 	<f:facet name="footer">
+            		<p:commandButton id="viewButton" value="View" icon="ui-icon-search"
+                    update=":form:displayTransaction :form:display" oncomplete="PF('transactionDialog').show()"/>
+        		</f:facet>
+        	 	<f:facet name="footer">
+            		<p:commandButton id="deleteButton" value="Delete" icon="ui-icon-closethick"
+                    update=":form:displayTransaction transactions :growlMessage"
+		        	actionListener="#{transactionViewController.deleteTransaction(transactionViewController.selectedTransaction)}" 
+		        	process="@this" target="#{transactionViewController.selectedTransaction}" ajax="false" />
+        		</f:facet>
+			</p:dataTable>
+	    	<!-- </h:panelGroup> -->
+	     
+	     	<h:panelGrid header="Quick edit" id="displayTransaction" columns="3" cellpadding="4" 
+	     		styleClass="#{transactionViewController.selectedTransaction.id == 0 ? 'defaultBorder' : 
+	     			transactionViewController.selectedTransaction.ie == 1 ? 'greenBorder' : 'redBorder'}"> 
+	     		<h:outputLabel value="Quick edit:" style="margin:0 auto;"/>
+	     		<h:outputLabel value="" />
+				<h:link value="Full edit" outcome="transaction" >
+					<f:param name="id" value="#{transactionViewController.selectedTransaction.id}" />
+				</h:link>
+	     		<!-- 
+		     	<h:outputLabel for="id" value="Id : " />
+		     	<h:outputLabel id="id" value="#{transactionViewController.selectedTransaction.id}">
+	     		    <p:ajax event="blur" update="idMsg" />
+	     		</h:outputLabel>
+	     		<p:message id="idMsg" for="id" display="icon"/> 
+	     		 -->
+   		        <h:outputLabel value="Income/Expense: " />
+		        <p:selectOneRadio id="ie" value="#{transactionViewController.selectedTransaction.ie}" >
+		            <f:selectItem itemLabel="Income" itemValue="1" 
+		            	styleClass="#{transactionViewController.selectedTransaction.ie == 1 ? 'green' : ''}"/>
+		            <f:selectItem itemLabel="Expense" itemValue="0" 
+		            	styleClass="#{transactionViewController.selectedTransaction.ie == 1 ? 'red' : ''}"/>
+		            <p:ajax update=":form:displayTransaction transactions :growlMessage" event="change"
+		            	listener="#{transactionViewController.ieChange}" />
+		        </p:selectOneRadio>
+   		        <h:outputLabel value="" />
+		       
+		     	<!-- <h:outputLabel for="id_currency" value="Currency: " />
+		     	<p:inputText id="id_currency" value="#{transactionViewController.selectedTransaction.idCurrency}">
+	     			<f:converter converterId="javax.faces.Integer"/>
+	     			<p:ajax event="blur" update="id_currencyMsg" />
+	     		</p:inputText>
+	     		<p:message id="id_currencyMsg" for="id_currency" display="icon"/> -->
+	     		
+ 			    <h:outputLabel for="id_currency" value="Currency: " />
+	     		<p:selectOneMenu id="id_currency" value="#{transactionViewController.selectedTransaction.idCurrency}" >
+                	<f:validateLongRange minimum="1" />
+	     			<p:ajax listener="#{transactionViewController.currencySelected()}" update="transactions"/>
+		            <!-- <f:selectItem itemLabel="Select One" itemValue="0" /> -->
+		            <f:selectItems value="#{currencySelect.getCurrencyList()}"  var="c" itemValue="#{c.id}" itemLabel="#{c.name}" />
+		        </p:selectOneMenu>
+       			<h:outputLabel value="" />
+       			
+	     		<h:outputLabel for="id_account" value="Account : " />
+	     		<p:selectOneMenu id="id_account" value="#{transactionViewController.selectedTransaction.idAccount}" >
+                	<f:validateLongRange minimum="1" />
+	     			<p:ajax listener="#{transactionViewController.accountSelected()}" update="transactions"/><!-- render="@form"  -->
+		            <f:selectItem itemLabel="Select One" itemValue="0" />
+		            <f:selectItems value="#{accountSelect.getAccountList()}"  var="a" itemValue="#{a.id}" itemLabel="#{a.name}" />
+		        </p:selectOneMenu>
+       			<h:outputLabel value="" />
+        
+		     	<h:outputLabel for="id_consumption" value="Consumption : " />   
+		     	<p:selectOneMenu id="id_consumption" value="#{transactionViewController.selectedTransaction.idConsumption}">                 	<f:validateLongRange minimum="1" />
+	     			<p:ajax listener="#{transactionViewController.consumptionSelected()}" update="transactions"/>
+		            <f:selectItem itemLabel="Select One" itemValue="0" />
+		            <f:selectItems value="#{consumptionSelect.getConsumptionList()}"  var="c" itemValue="#{c.id}" itemLabel="#{c.name}" />
+		        </p:selectOneMenu>
+	     		<p:message id="id_consumptionMsg" for="id_consumption" display="icon"/> 
+	     		
+		     	<h:outputLabel for="date" value="Date: " />   
+	     		<p:calendar locale="#{UserMB.language}" mindate="01.01.2001" maxdate="31.12.2030" pattern="dd.MM.yyyy HH:mm" mask="true" 
+	     			value="#{transactionViewController.selectedTransaction.dateTransaction}" id="dateTransaction" >
+                	<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+            	</p:calendar>
+		     	<h:outputLabel value="" />   
+	     		
+		     	<h:outputLabel for="value" value="Value: " />   
+		     	<p:inputText id="value" value="#{transactionViewController.selectedTransaction.value}"> 
+	     			<f:validateDoubleRange minimum="0.01" maximum="999999999.99" />
+	     			<p:ajax event="blur" update="valueMsg" />  
+	     		</p:inputText>
+	     		<p:message id="valueMsg" for="value" display="icon"/> 
+	     		     
+ 				<h:outputLabel for="description" value="Description: " />   
+		     	<p:inputTextarea id="description" value="#{transactionViewController.selectedTransaction.description}"> 
+	     			<p:ajax event="blur" update="descriptionMsg" />  
+	     		</p:inputTextarea>
+	     		<p:message id="descriptionMsg" for="description" display="icon"/> 
+	     		
+	     		<h:outputLabel value="" /> 
+		     	<p:commandButton id="updateTransaction" value="#{lang['save']}" 
+		     		actionListener="#{transactionViewController.updateTransaction(transactionViewController.selectedTransaction)}" 
+		     		update=":form:displayTransaction transactions :growlMessage" ajax="false" 
+		     		styleClass="#{transactionViewController.selectedTransaction.ie == 1 ? 'greenBackground' : 'redBackground'}" />
+		     			<!--  process="@this" 
+		     			target="#{transactionViewController.selectedTransaction}"  -->
+		     	<p:commandButton id="reset" icon="ui-icon ui-icon-plusthick" value="New" actionListener="#{transactionViewController.resetTransaction}" 
+		     		update=":form:displayTransaction transactions :growlMessage"  
+		     		target="#{transactionViewController.selectedTransaction}" /><!-- process="@this" -->
+		    </h:panelGrid>  
+	
+		    <p:dialog header="Transaction Details" widgetVar="transactionDialog" resizable="false" id="transactionDlg"
+		                showEffect="fade" appendToBody="false" dynamic="true" hideEffect="explode" modal="false">
+		        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+		        	<!-- 
+		            <h:outputText value="Id:" />
+		            <h:outputText value="#{transactionViewController.selectedTransaction.id}" style="font-weight:bold"/>
+		 			-->
+		            <h:outputText value="Vrijednost:" />
+		            <h:outputText value="#{transactionViewController.selectedTransaction.value}" style="font-weight:bold"/>
+		 	 
+		            <h:outputText rendered="#{transactionViewController.selectedTransaction.e != 'null'}" 
+		            	value="E transakcija:" />
+		            <h:outputText rendered="#{transactionViewController.selectedTransaction.e != 'null'}" 
+		            	value="#{transactionViewController.selectedTransaction.e}" style="font-weight:bold"/>
+		 			
+	            	<h:outputText rendered="#{transactionViewController.selectedTransaction.description != 'null'}" 
+	            		value="Opis:" />
+	            	<h:outputText rendered="#{transactionViewController.selectedTransaction.description != 'null'}" 
+	            		value="#{transactionViewController.selectedTransaction.description}" style="font-weight:bold"/>
+		        </h:panelGrid>
+		    </p:dialog>  
+     </h:form> 
+     <script type="text/javascript">
+        //<![CDATA[
+        $(':radio').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        
+        alert();
+        $('#ie').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        //]]>
+    </script>
+<f:metadata>
+	<f:event type="preRenderView" listener="#{userMB.checkAuthentication2}" />  
+  	<f:event type="preRenderView" listener="#{userMB.init}"/>
+	<f:event type="postAddToView" listener="#{transactionViewController.init}" />
+</f:metadata>
+</ui:define>
+</ui:composition>
+
+    

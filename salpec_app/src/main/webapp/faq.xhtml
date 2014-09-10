@@ -1,0 +1,28 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+  <!--   (#{lang['welcome.jsf']} + ' Hello ' + #{userMB.name})-->
+<ui:define name="content">
+	<h:head><title><h:outputText value="#{userMB.isLoggedIn() ? (lang['welcome.jsf']).concat(userMB.name).concat('!') : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />   
+	<p:panel style="min-width:360px;max-width: 360px;margin: 0 auto;">
+		   	<h:outputLabel styleClass="red fontSizeMain" value="Is SalPec available on mobile and tablet devices?" /><br/>
+		   	<h:outputLabel styleClass="fontSizeMain" value="Yes, as long as you have Internet connection, you can record all your incomes and expenses." /><br/><br/>
+		   	<h:outputLabel styleClass="green fontSizeMain" value="Will you make an iPhone and/or iPad app?" /><br/>
+		   	<h:outputLabel styleClass="fontSizeMain" value="We would love to, but currently we are focusing our resources on upgrading existing platform." /><br/><br/>
+		   	<h:outputLabel styleClass="red fontSizeMain" value="Can I use multiple accounts in SalPec?" /><br/>
+		   	<h:outputLabel styleClass="fontSizeMain" value="Yes you can." /><br/><br/>
+		   	<h:outputLabel styleClass="green fontSizeMain" value="Is SalPec free?" /><br/>
+		   	<h:outputLabel styleClass="fontSizeMain" value="It is free. Main features will always be free. In the future, while upgrading our platfrom, we plan to introduce pro account with bonus options that you will have to pay for. We don't live on ones and zeros." /><br/><br/>
+		   	<h:outputLabel styleClass="red fontSizeMain" value="Will you add [Make a wish] feature?" /><br/>
+		   	<h:outputLabel styleClass="fontSizeMain" value="Email us. We will see what we can do." /><br/><br/>
+	</p:panel>    
+	<f:metadata>
+	  <f:event type="preRenderView" listener="#{userMB.init}"/>
+	</f:metadata>
+</ui:define>
+</ui:composition>

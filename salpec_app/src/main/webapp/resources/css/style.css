@@ -1,0 +1,371 @@
+* {
+  /*font-family: sans-serif;*/
+  font-family: Trebuchet MS;
+}
+.spaced:before {
+  content: "\00a0 \00a0 \00a0 \00a0 \00a0 ";
+}
+.spaced2:before {
+  content: "\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0 ";
+}
+#content{
+	padding:10px;
+}
+#salpec:hover{
+	cursor: pointer; cursor: hand;
+}
+.center{
+margin: 0px auto;
+width:100px;
+}
+.center1{
+margin: 0px auto;
+width: 180px;
+height: 40px;
+}
+.centered{
+vertical-align: middle !important;
+}
+.centerGridColumns{
+	text-align: center; margin-left: 50%;
+}
+.red{
+color: red;
+forecolor: red;
+backgroundcolor: red;
+/*float:right;*/
+}
+.redBackground{
+background: -webkit-linear-gradient(left top, #FF3333 , #FF4D4D) !important;/*FFADAD For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #FF3333, #FF4D4D) !important;/* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #FF3333, #FF4D4D) !important;/* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #FF3333 , #FF4D4D) !important;/* Standard syntax */
+}
+.redBackground:hover{
+background: -webkit-linear-gradient(left top, #FF4D4D , #FF3333) !important;/*FFADAD For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #FF4D4D, #FF3333) !important;/* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #FF4D4D, #FF3333) !important;/* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #FF4D4D , #FF3333) !important;/* Standard syntax */
+}
+.redBackground:active{
+background: -webkit-linear-gradient(left top, #FF4D4D , #FF4D4D) !important;/*FFADAD For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #FF4D4D, #FF4D4D) !important;/* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #FF4D4D, #FF4D4D) !important;/* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #FF4D4D , #FF4D4D) !important;/* Standard syntax */
+}
+.redBackgroundLight{
+background: -webkit-linear-gradient(left top, #FFE6E6 , #FF8080) !important;/*FFADAD For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #FFE6E6, #FF8080) !important;/* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #FFE6E6, #FF8080) !important;/* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #FFE6E6 , #FF8080) !important;/* Standard syntax */
+}
+.redBackgroundLight:hover{
+background: -webkit-linear-gradient(left top, #FF8080 , #FFCCCC) !important;/*FFADAD For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #FF8080, #FFCCCC) !important;/* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #FF8080, #FFCCCC) !important;/* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #FF8080 , #FFCCCC) !important;/* Standard syntax */
+cursor: pointer; cursor: hand;
+}
+.redBackgroundLight:active {
+background: -webkit-linear-gradient(left top, #FF8080 , #FF8080) !important;/*FFADAD For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #FF8080, #FF8080) !important;/* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #FF8080, #FF8080) !important;/* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #FF8080 , #FF8080) !important;/* Standard syntax */
+cursor: pointer; cursor: hand;
+}
+.redBorder {
+margin:0 auto;
+border: 4px solid #B20000;
+-moz-border-bottom-colors:#B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+-moz-border-top-colors:  #B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+-moz-border-left-colors: #B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+-moz-border-right-colors:#B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+-webkit-border-bottom-colors:#B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+-webkit-border-top-colors:  #B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+-webkit-border-left-colors: #B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+-webkit-border-right-colors:#B20000 #B20000 #FF4D4D #FF4D4D #FF4D4D #FF4D4D #B20000 #B20000;
+
+-webkit-box-shadow: 0 0 4px FF4D4D;
+-moz-box-shadow: 0 0 4px FF4D4D;
+box-shadow: 0 0 4px FF4D4D;
+
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+}
+.redBorder:hover{
+-webkit-box-shadow: inset 0 0 4px #FF3333;
+-moz-box-shadow: inset 0 0 4px #FF3333;
+box-shadow: inset 0 0 4px #FF3333;
+}
+.defaultBorder {
+margin:0 auto;
+padding: 8px;
+}
+.green{
+color: green;
+forecolor: green;
+backgroundcolor: green;
+/*float:right;*/
+}
+.greenBackground{
+background: -webkit-linear-gradient(left top, #006100 , #008A00) !important; /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #006100, #008A00) !important; /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #006100, #008A00) !important; /* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #006100 , #008A00) !important; /* Standard syntax */
+color: #fff !important;
+}
+.greenBackground:hover{
+background: -webkit-linear-gradient(left top, #008A00 , #006100) !important; /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #008A00, #006100) !important; /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #008A00, #006100) !important; /* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #008A00 , #006100) !important; /* Standard syntax */
+color: #fff !important;
+}
+.greenBackground:active{
+background: -webkit-linear-gradient(left top, #008A00 , #008A00) !important; /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #008A00, #008A00) !important; /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #008A00, #008A00) !important; /* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #008A00 , #008A00) !important; /* Standard syntax */
+color: #fff !important;
+}
+.greenBackgroundLight{
+background: -webkit-linear-gradient(left top, #E6F5E6 , #CCEBCC) !important; /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #E6F5E6, #CCEBCC) !important; /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #E6F5E6, #CCEBCC) !important; /* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #E6F5E6 , #CCEBCC) !important; /* Standard syntax */
+/*color: #fff !important;*/
+}
+.greenBackgroundLight:hover{
+background: -webkit-linear-gradient(left top, #CCEBCC , #E6F5E6) !important; /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #CCEBCC, #E6F5E6) !important; /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #CCEBCC, #E6F5E6) !important; /* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #CCEBCC , #E6F5E6) !important; /* Standard syntax */
+/*color: #fff !important;*/
+cursor: pointer; cursor: hand;
+}
+.greenBackgroundLight:active{
+background: -webkit-linear-gradient(left top, #CCEBCC , #CCEBCC) !important; /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(bottom right, #CCEBCC, #CCEBCC) !important; /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(bottom right, #CCEBCC, #CCEBCC) !important; /* For Firefox 3.6 to 15 */
+background: linear-gradient(to bottom right, #CCEBCC , #CCEBCC) !important; /* Standard syntax */
+/*color: #fff !important;*/
+cursor: pointer; cursor: hand;
+}
+.greenBorder {
+margin:0 auto;
+border: 4px solid #94FF70;
+-moz-border-bottom-colors:#94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+-moz-border-top-colors:  #94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+-moz-border-left-colors: #94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+-moz-border-right-colors:#94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+-webkit-border-bottom-colors:#94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+-webkit-border-top-colors:  #94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+-webkit-border-left-colors: #94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+-webkit-border-right-colors:#94FF70 #94FF70 #30AC30 #30AC30 #30AC30 #30AC30 #94FF70 #94FF70;
+
+  /*-webkit-border-image: 
+    -webkit-gradient(45deg, #94FF70, #30AC30);
+  -webkit-border-image: 
+    -webkit-linear-gradient(45deg, #94FF70, #30AC30);
+  -o-border-image:
+    -o-linear-gradient(bottom, #94FF70, #30AC30) 1 100%;
+-webkit-box-shadow: 0 0 4px 30AC30;
+-moz-box-shadow: 0 0 4px 30AC30;
+box-shadow: 0 0 4px 30AC30;*/
+    /* The background is used to specify the border background 
+    background: -moz-linear-gradient(45deg, #f00, #ff0);*/
+    /* background: -webkit-linear-gradient(45deg, #94FF70, #94FF70);
+    -moz-background-origin: border;
+    background-origin: border-box;
+    box-shadow: inset -999px 0 0 #fff; The background color */
+
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+}
+.greenBorder:hover{
+-webkit-box-shadow: inset 0 0 4px #005C00;
+-moz-box-shadow: inset 0 0 4px #005C00;
+box-shadow: inset 0 0 4px #005C00;
+}
+
+.bold{
+font-weight: bold;
+}
+.right{
+float:right;
+}
+#header{
+height:30px;
+}
+#footer-container{
+/* padding:0px !important;
+margin:0px !important; */
+}
+#footer{
+height: 30px;
+}
+#footer-center{
+margin: 0px auto;
+cursor: pointer; cursor: hand;
+}
+#footer-center-faq{
+cursor: pointer; cursor: hand;
+}
+#space{
+padding:30px;
+}
+#layoutHeader{
+height:60px;
+}
+#menuTree{
+/*width:40px !important;*/
+}
+#menuTreePanel{
+/*width:40px !important;*/
+}
+/*.ui-tree {
+    width: 40px;
+}*/
+@media (max-width: 320px) {
+	#header{
+	/*height:40px;*/
+	}
+	#layoutHeader{
+	height:60px;
+	font-size:16px;
+	}
+	#transactions, #consumptiongroups, #consumptions, #consumptionView, #users, #accounts{
+	font-size:10px;
+	}
+	#displayTransaction, #displayConsumptionGroup, #displayConsumptions, #displayAccount{
+	font-size:14px;
+	}
+	#Menu{
+	font-size:16px;
+	}
+	#dashboardDataScrollerTransaction{
+	font-size:16px;
+	}
+	.fontSizeMain, #registrationFormHeader{
+	font-size:16px;
+	}
+	.fontSizePage{
+	font-size:14px;
+	}
+	.fontSizeFooter{
+	font-size:12px;
+	}
+	#space{
+	padding:5px;
+	}
+	#tagCloudIncomeCount{margin:0 auto;
+	}
+	#tagCloudIncomeValue{margin:0 auto;
+	}
+}
+@media (min-width: 321px) {
+	#transactions, #consumptiongroups, #consumptions, #consumptionView, #users, #accounts{
+	font-size:12px;
+	}
+	#displayTransaction, #displayConsumptionGroup, #displayConsumptions, #displayAccount{
+	font-size:16px;
+	}
+	#Menu{
+	font-size:16px;
+	}
+	#dashboardDataScrollerTransaction{
+	font-size:18px;
+	}
+	.fontSizeMain, #registrationFormHeader{
+	font-size:18px;
+	}
+	.fontSizePage{
+	font-size:16px;
+	}
+	.fontSizeFooter{
+	font-size:14px;
+	}
+	#space{
+	padding:15px;
+	}
+	#tagCloudIncomeCount{margin:0 auto;padding:0px 0px 10px 0px;
+	}
+	#tagCloudIncomeValue{margin:0 auto;padding:0px 0px 10px 0px;
+	}
+	#tagCloudExpenseCount{margin:0 auto;padding:0px 0px 10px 0px;
+	}
+	#tagCloudExpenseValue{margin:0 auto;padding:0px 0px 10px 0px;
+	}
+}
+@media (min-width: 481px) {
+	/*#transactions, #consumptiongroups, #consumptions, #consumptionView, #users, #accounts{
+	font-size:14px;
+	}
+	#displayTransaction, #displayConsumptionGroup, #displayConsumptions, #displayAccount{
+	font-size:18px;
+	}
+	#dashboardDataScrollerTransaction{
+	font-size:18px;
+	}*/
+	#tagCloudIncomeCount{margin:0 auto;padding:10px 10px 20px 10px;
+/*border:3px solid red;*/
+	}
+	#tagCloudIncomeValue{margin:0 auto;padding:10px 10px 20px 10px;
+	}
+	#tagCloudExpenseCount{margin:0 auto;padding:10px 10px 20px 10px;
+	}
+	#tagCloudExpenseValue{margin:0 auto;padding:10px 10px 20px 10px;
+	}
+	#TransactionDataScroller{float:left;
+	}
+}
+@media (min-width: 641px) {
+	/*#transactions, #consumptiongroups, #consumptions, #consumptionView, #users, #accounts{
+	font-size:14px;
+	}
+	#displayTransaction, #displayConsumptionGroup, #displayConsumptions, #displayAccount{
+	font-size:18px;
+	}*/
+	#tagCloudIncomeCount{margin:0 auto;vertical-align: middle;
+/*border:3px solid green;*/
+	}
+	#tagCloudIncomeValue{margin:0 auto;vertical-align: middle;
+	}
+	#tagCloudExpenseCount{margin:0 auto;vertical-align: middle;
+	}
+	#tagCloudExpenseValue{margin:0 auto;vertical-align: middle;
+	}
+}
+@media (min-width: 860px) {
+	#transactions, #consumptiongroups, #consumptions, #consumptionView, #users, #accounts{
+	font-size:14px;
+	}
+	#displayTransaction, #displayConsumptionGroup, #displayConsumptions, #displayAccount{
+	font-size:18px;
+	}
+	#Menu{
+	font-size:18px;
+	}
+	#dashboardDataScrollerTransaction{
+	font-size:20px;
+	}
+	.fontSizeMain, #registrationFormHeader{
+	font-size:20px;
+	}
+	.fontSizePage{
+	font-size:18px;
+	}
+	.fontSizeFooter{
+	font-size:16px;
+	}
+	#tagCloudIncomeCount{float:left;
+	}
+	#tagCloudIncomeValue{float:right;
+	}
+	#tagCloudExpenseCount{float:left;
+	}
+	#tagCloudExpenseValue{float:right;
+	}
+}

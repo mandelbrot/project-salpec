@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head>
+ <title>Welcome to OTV_JSF_Spring_Hibernate_Project.<h:outputText value=" Hello #{userMB.name}" rendered="#{userMB.loggedIn}"/></title></h:head>  
+ <h:body>
+     <h:form>      
+		<h:outputLabel for="id" value="#{userMB.isLoggedIn() ? userMB.name : 'Guest'}" /><br/>
+		<h:commandLink action="#{userMB.logout}" rendered="#{userMB.loggedIn}" value="Logout"/>
+		<h:panelGroup rendered="#{userMB.loggedIn}">
+	    	<p>Welcome, #{userMB.name}!</p>
+		</h:panelGroup>
+     </h:form>   
+     <h:form rendered="#{userMB.loggedIn}">  
+	     <h:outputText value="Accounts : "></h:outputText>
+			<p:dataTable id="accounts" var="account" value="#{accountCRUD.accountList}" style="width: 10%">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{account.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
+					<h:outputText value="#{account.name}" />
+				</p:column>
+			</p:dataTable>    
+		<p:commandButton id="addAccount" value="Add" action="#{accountCRUD.addAccount}" ajax="false"/>
+		<p:commandButton id="reset" value="Reset" action="#{accountCRUD.reset}" ajax="false"/>
+     </h:form>      
+</h:body>
+</html> 

@@ -1,0 +1,148 @@
+<ui:composition template="/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+   
+<ui:define name="content">
+ <h:head><title><h:outputText value="#{userMB.isLoggedIn() ? userMB.name : 'Index'}"/></title></h:head>
+	<p:growl id="growlMessage" life="5000" showDetail="true" />
+ 	<h:form id="form" prependId="false" >    
+	    	<h4 class="title ui-widget-header ui-corner-all fontSizeMain" style="min-width:360px;">Edit consumption groups</h4>
+		 	<p:contextMenu id="contextMenu" for="consumptiongroups" widgetVar="ctxMenu">  
+		        <p:menuitem value="View" update=":form:displayConsumptionGroup :form:display" icon="ui-icon-search" 
+		        oncomplete="PF('consumptionGroupDialog').show()"/>
+		        <p:menuitem value="Delete" update=":form:displayConsumptionGroup consumptiongroups :growlMessage" icon="ui-icon-closethick" 
+		        	actionListener="#{consumptionGroupController.deleteConsumptionGroup(consumptionGroupController.selectedConsumptionGroup)}" 
+		        	process="@this" target="#{consumptionGroupController.selectedConsumptionGroup}" />  
+		    </p:contextMenu> 
+		    
+			<p:dataTable id="consumptiongroups" var="consumptiongroup" rowKey="#{consumptiongroup.id}" selectionMode="single" 
+				value="#{consumptionGroupController.consumptiongroupList}" selection="#{consumptionGroupController.selectedConsumptionGroup}" 
+				emptyMessage="No Records Found." paginator="true" rows="10" style="min-width:360px; margin:0 auto;"> 
+	        	<p:ajax event="rowSelect" update=":form:displayConsumptionGroup :form:display :form:contextMenu" 
+	        		listener="#{consumptionGroupController.onRowSelect}" />
+	        	<p:ajax event="contextMenu" update=":form:displayConsumptionGroup :form:display :form:contextMenu" 
+	        		listener="#{consumptionGroupController.onRowSelect}" /><!-- oncomplete="ctx.show(currentEvent);" -->
+				<!-- <p:column headerText="Id">
+					<h:outputText value="#{consumptiongroup.id}" />
+				</p:column> -->
+				<p:column sortBy="name" headerText="#{lang['consumption.type']}">
+					<h:outputText value="#{consumptiongroup.name}" />
+				</p:column>
+				<p:column id="dtAccount" sortBy="ieDefault" headerText="Income/Expense">
+					<h:outputText value="#{consumptiongroup.ieDefault == '1' ? 'Income' : 'Expense'}" />
+				</p:column>
+        	 	<f:facet name="footer">
+           		<p:commandButton id="viewButton" value="View" icon="ui-icon-search"
+                    update=":form:displayConsumptionGroup :form:display" oncomplete="PF('consumptionGroupDialog').show()">
+		     	    <f:ajax execute="@form" render="@form" />
+					</p:commandButton>
+        		</f:facet>
+        	 	<f:facet name="footer">
+           		<p:commandButton id="deleteButton" value="Delete" icon="ui-icon-closethick"
+                    update=":form:displayConsumptionGroup consumptiongroups :growlMessage"
+		        	actionListener="#{consumptionGroupController.deleteConsumptionGroup(consumptionGroupController.selectedConsumptionGroup)}" 
+		        	process="@this" target="#{consumptionGroupController.selectedConsumptionGroup}">
+		     	    <f:ajax execute="@form" render="@form" />
+				</p:commandButton>
+        		</f:facet>
+			</p:dataTable>
+	     
+	     	<h:panelGrid header="Quick edit" id="displayConsumptionGroup" columns="3" cellpadding="4" 
+	     		styleClass="#{consumptionGroupController.selectedConsumptionGroup.id == 0 ? 'defaultBorder' : 
+	     			consumptionGroupController.selectedConsumptionGroup.ieDefault == 1 ? 'greenBorder' : 'redBorder'}"> 
+	     		<h:outputLabel value="Quick edit:" style="margin:0 auto;"/>
+	     		<h:outputLabel value="" />
+	     		<h:outputLabel value="" />
+	     		<!--
+		     	<h:outputLabel for="id" value="Id : " />
+		     	<h:outputLabel id="id" value="#{consumptionGroupController.selectedConsumptionGroup.id}">
+	     		    <p:ajax event="blur" update="idMsg" />
+	     		</h:outputLabel>
+	     		<p:message id="idMsg" for="id" display="icon"/> 
+	     		-->
+		     	<h:outputLabel for="name" value="Name" />   
+		     	<p:inputText id="name" value="#{consumptionGroupController.selectedConsumptionGroup.name}"> 
+	     			<p:ajax event="blur" update="nameMsg" />  
+	     		</p:inputText>
+	     		<p:message id="nameMsg" for="name" display="icon"/> 
+	     		     
+   		        <h:outputLabel value="Default Income/Expense: " />
+		        <p:selectOneRadio id="ieDefault" value="#{consumptionGroupController.selectedConsumptionGroup.ieDefault}" >
+		            <f:selectItem itemLabel="Income" itemValue="1"/>
+		            <f:selectItem itemLabel="Expense" itemValue="0"/>
+		            <p:ajax update=":form:displayConsumptionGroup consumptiongroups :growlMessage" event="change"
+		            	listener="#{consumptionGroupController.ieChange}" />
+		        </p:selectOneRadio>
+   		        <h:outputLabel value="" />
+        
+ 				<h:outputLabel for="description" value="Description: " />   
+		     	<p:inputTextarea id="description" value="#{consumptionGroupController.selectedConsumptionGroup.description}"> 
+	     			<p:ajax event="blur" update="descriptionMsg" />  
+	     		</p:inputTextarea>
+	     		<p:message id="descriptionMsg" for="description" display="icon"/> 
+	     		
+	     		<h:outputLabel value="" /> 
+		     	<p:commandButton id="updateConsumptionGroup" value="#{lang['save']}" 
+		     		actionListener="#{consumptionGroupController.updateConsumptionGroup(consumptionGroupController.selectedConsumptionGroup)}" 
+		     		update=":form:displayConsumptionGroup consumptiongroups :growlMessage"
+		     		styleClass="#{consumptionGroupController.selectedConsumptionGroup.ieDefault == 1 ? 'greenBackground' : 'redBackground'}">
+		     	    <f:ajax execute="@form" render="@form" />
+				</p:commandButton>
+		     	<p:commandButton id="reset" icon="ui-icon ui-icon-plusthick" value="New" actionListener="#{consumptionGroupController.resetConsumptionGroup}" 
+		     		update=":form:displayConsumptionGroup consumptiongroups :growlMessage" 
+		     		target="#{consumptionGroupController.selectedConsumptionGroup}">
+		     	    <f:ajax execute="@form" render="@form" />
+				</p:commandButton>
+				
+   		        <h:outputLabel value="" />
+				<h:link outcome="index" rendered="#{userMB.loggedIn}" value="Home"/><br/>
+		    </h:panelGrid>  
+	
+		    <p:dialog header="Consumption group details" widgetVar="consumptionGroupDialog" resizable="false" id="consumptionGroupDlg"
+	            showEffect="fade" appendToBody="false" dynamic="true" hideEffect="explode" modal="false">
+		        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+		        	<!--
+		            <h:outputText value="Id:" />
+		            <h:outputText value="#{consumptionGroupController.selectedConsumptionGroup.id}" style="font-weight:bold"/>
+		 			-->
+		            <h:outputText value="Name:" />
+		            <h:outputText value="#{consumptionGroupController.selectedConsumptionGroup.name}" style="font-weight:bold"/>
+		 
+		            <h:outputText value="Default Income/Expense:" />
+		            <h:outputText value="#{consumptionGroupController.selectedConsumptionGroup.ieDefault == '1' ? 'Income' : 'Expense'}" style="font-weight:bold"
+		            styleClass="#{consumptionGroupController.selectedConsumptionGroup.ieDefault == 1 ? 'green' : 'red'}"/>
+
+	            	<h:outputText rendered="#{consumptionGroupController.selectedConsumptionGroup.description != 'null'}" 
+	            		value="Opis:" />
+	            	<h:outputText rendered="#{consumptionGroupController.selectedConsumptionGroup.description != 'null'}" 
+	            		value="#{consumptionGroupController.selectedConsumptionGroup.description}" style="font-weight:bold"/>
+		        </h:panelGrid>
+		    </p:dialog>  
+     </h:form> 
+     <script type="text/javascript">
+        //<![CDATA[
+        $(':radio').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        
+        alert();
+        $('#ie').puiradiobutton({  alert();
+		    change: function(event) {  
+		        alert();
+		}});  
+        //]]>
+    </script>
+<f:metadata>
+ 	<f:event type="preRenderView" listener="#{userMB.checkAuthentication2}" />  
+  	<f:event type="preRenderView" listener="#{userMB.init}"/>
+	<f:event type="postAddToView" listener="#{consumptionGroupController.init}" />
+</f:metadata>
+</ui:define>
+</ui:composition>
+
+    

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+><!-- primefaces.prime.com.tr/ui     http://primefaces.org/ui -->
+
+
+<!-- itemSelectListener="#{chartBean.itemSelect}"  -->
+
+<p:panel style="min-width:280px;max-width: 980px;width: 70%;margin: 0 auto;">
+	<h:form>     
+		<div style="text-align: center; margin-left: 0;font-size:30px;" >
+			<h:outputText value="SalPec, tracking down your money leaking since 2014!" />
+		</div>
+		<br/>
+		<p:chart type="metergauge" model="#{chartBean.meterGaugeModel}" style="width:400px;height:300px;margin: 0 auto;" />
+		<br/>
+		<p:pieChart id="pieModel" value="#{chartBean.pieModel}" legendPosition="ne"  
+			title="What you are spending most for?" style="width:400px;height:300px;margin: 0 auto;" />
+		<br/>
+		<p:chart id="spendingYearsModel" type="bar" model="#{chartBean.spendingYearsModel}" style="height:300px;width:600px;margin: 0 auto;">
+			<p:ajax event="itemSelect" listener="#{chartBean.itemSelect}" process="@this" update="spendingYearsModel">
+			</p:ajax>
+		</p:chart>
+		<br/>
+		
+		<div style="text-align: center; margin-left: 0;font-size:20px;" >
+			<h:outputText style="color:grey;"
+				value="Cashflow through years. Because you are your best investment. After kids. (We know it's a cliche, but it's true!)" />
+		</div>
+		<p:chart id="expenseIncomeYearsModel" type="bar" model="#{chartBean.expenseIncomeYearsModel}" style="height:300px;width:600px;margin: 0 auto;">
+			<p:ajax event="itemSelect" listener="#{chartBean.itemSelect1}" process="@this" update="expenseIncomeYearsModel">
+			</p:ajax>
+		</p:chart>
+		<br/>
+		<p:chart id="profitYearsModel" type="bar" model="#{chartBean.profitYearsModel}" extender="ext"
+			style="height:300px;width:600px;margin: 0 auto;" seriesColors="000000, 00FF00, FFFF00">
+			<p:ajax event="itemSelect" listener="#{chartBean.itemSelect2}" process="@this" update="profitYearsModel">
+			</p:ajax>
+		</p:chart>
+		<br/>
+		<br/>
+		<div style="text-align: center; margin-left: 0;font-size:24px;" >
+			<h:link outcome="register" rendered="#{!userMB.loggedIn}" value="Register, it's free"/>
+		</div>	
+		<br/>
+		<!--<p:chart type="bar" model="#{chartBean.horizontalBarModel}" style="height:300px"/>-->
+  
+	   <!-- 
+       <p:lineChart id="linear" value="#{chartBean.chartContentbeanList}" legendPosition="e"  
+        title="Linear Chart" minY="0" maxY="10" style="height:300px"/> -->
+	</h:form>   
+</p:panel>
+<h:outputScript>
+function ext() {
+  this.cfg.seriesDefaults.rendererOptions.varyBarColor = true;
+}                               
+</h:outputScript>  
+</html>
